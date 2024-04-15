@@ -7,75 +7,175 @@
     {% set itemsList %}
         {% for connectedProduct in connectedProducts %}
             {% set product = ObjectApi.getProduct(connectedProduct) %}
+				{% if product.isAvailable %}
+					<a 
+                  		class="custom-related__item {% if product.id == product_id %}custom-related__item--current{% endif %}" 
+                        href="{{ product.url }}" 
+                     	title="{{ product.name }}"
+                        data-key="{{ loop.index }}"
+                        data-id="{{ product.id }}" 
+                        data-stock-id="1">
 
-            <a class="related-item {% if product.id == product_id %}current{% endif %}" href="{{ product.url }}"
-               title="{{ product.name }}" data-id="{{ product.id }}" data-stock-id="1">
+                      	{% if moduleConfig.showProductImage == 1 %}
+                        	<span class="custom-related__imgwrap">
+                              <img 
+                                src="{{ product.featuredImage.webpThumbnailUrl(150, 150) }}" 
+                                alt="{{ product.name }}"
+                                width="150" 
+                                height="150">
+                           </span>
+                      	{% endif %}
 
-                {% if moduleConfig.showProductImage == 1 %}
-                    <img src="{{ product.featuredImage.webpThumbnailUrl(120, 120) }}" alt="{{ product.name }}"
-                         width="120" height="120">
+                        {% if moduleConfig.showProductName == 1 %}
+                            <span class="custom-related__name">{{ product.name }}</span>
+                        {% endif %}
+                  </a>
                 {% endif %}
-
-                {% if moduleConfig.showProductName == 1 %}
-                    <br>
-                    <span class="related-item-name">{{ product.name }}</span>
-                {% endif %}
-            </a>
         {% endfor %}
     {% endset %}
 
+    <div class="mmz custom-related">
+    	{% if moduleConfig.headerText != "" %}
+            <p class="p font_semibold custom-related__boxhead">{{ moduleConfig.headerText }}</p>
+        {% endif %}
 
-    {% if moduleConfig.headerText != "" %}
-        <span class="relatedHeader">{{ moduleConfig.headerText }}</span>
-    {% endif %}
-
-    <div id="customRelated">
         {{ list_grid(
             itemsList,
             {
                 grid: {
-                phoneItemsCountPerRow: moduleConfig.numberOfProductsInRowPhone,
-                smallTabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
-                tabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
-                laptopItemsCountPerRow: moduleConfig.numberOfProductsInRowLaptop,
-                desktopItemsCountPerRow: moduleConfig.numberOfProductsInRowDesktop
-            }
+                  phoneItemsCountPerRow: moduleConfig.numberOfProductsInRowPhone,
+                  smallTabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
+                  tabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
+                  laptopItemsCountPerRow: moduleConfig.numberOfProductsInRowLaptop,
+                  desktopItemsCountPerRow: moduleConfig.numberOfProductsInRowDesktop
+            	},
+                classNames : ["custom-related__list"]
             }
         ) }}
+
+        {% if moduleConfig.showExpandButton == 1 %}
+          <div class="custom-related__showmore">
+              {{ moduleConfig.expandButtonText }}
+          </div>
+        {% endif %}
     </div>
+    
+    <style type="text/css">
 
+    .mmz .custom-related{
 
-    <style type="text/css">.related-item {
-            display: inline-block;
-            text-align: center;
-        }
+    }
+    .mmz .custom-related__boxhead{
 
-        .related-item .related-item-name {
-            display: block;
-            text-align: center !important;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
+    }
+    .mmz .custom-related__wrap{
 
-        #customRelated .related-item img {
-            object-fit: contain;
-            height: auto;
-            width: auto;
-        }
+    }
+    .mmz .custom-related__list{
+        gap:20px;
+    }
+    .mmz .custom-related__item{
+        width: 100%;
+        text-decoration: none;
+    }
 
-        .related-item.current {
-            border: solid;
-            border-color: {{ moduleConfig.borderColor }};
-            border-width: {{ moduleConfig.borderSize }}px;
-        }
+    .mmz .custom-related__imgwrap{
+        border-radius: 3px;
+        border: 1px solid rgba(3, 8, 28, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 7px;
+    }
 
-        .relatedHeader {
-            font-weight: bold;
-        }
+    .mmz .custom-related__item--current .custom-related__imgwrap{
+        border-color: {{ moduleConfig.borderColor }};
+        border-width: {{ moduleConfig.borderSize }}px;
+    }
 
-        #customRelated {
-            margin-top: 10px
-        }
+    .mmz .custom-related__name{
+        display: block;
+        color:black;
+        margin: 10px 2px;
+        font-size:12px;
+        line-height:15px;
+        text-align: center;
+    }
 
+    .mmz .custom-related__showmore{
+        font-size:12px;
+        text-decoration:underline;
+        text-align: center;
+        padding: 5px;
+        box-sizing: border-box;
+        color: #D6302D;
+        cursor: pointer;
+    }
     </style>
+    
+    {% if moduleConfig.showExpandButton == 1 %}
+		{% set numberOfProductsInRowPhoneKey = moduleConfig.numberOfProductsInRowPhone + 1 %}
+        {% set numberOfProductsInRowTabletSmallKey = moduleConfig.numberOfProductsInRowTablet + 1 %}
+        {% set numberOfProductsInRowTabletKey = moduleConfig.numberOfProductsInRowTablet + 1 %}
+        {% set numberOfProductsInRowLaptopKey = moduleConfig.numberOfProductsInRowLaptop + 1 %}
+        {% set numberOfProductsInRowDesktopKey = moduleConfig.numberOfProductsInRowDesktop + 1 %}
+			
+        <style type="text/css">
+          .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+              display:none;
+          }
+          @media screen and (min-width:576px){
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+                  display:none;
+              }
+          }
+          @media screen and (min-width:768px){
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+                  display:none;
+              }
+          }
+          @media screen and (min-width:1000px){
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
+                  display:none;
+              }
+          }
+          @media screen and (min-width:1440px){
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
+                  display:block;
+              }
+              .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowDesktopKey }}){
+                  display:none;
+              }
+          }
+		</style>
+	{% endif %}
+
 {% endif %}

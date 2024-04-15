@@ -244,7 +244,7 @@
                         "label": "Border color",
                         "isHidden": false,
                         "isRequired": false,
-                        "defaultValue": "#FF0000"
+                        "defaultValue": "#000000"
                     }
                 ]
             }
