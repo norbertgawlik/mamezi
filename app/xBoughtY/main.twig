@@ -1,0 +1,152 @@
+{% set product = ObjectApi.getProduct(product_id) %}
+
+{% if product.metafields.mamezi_x_kupilo_y.number_of_buyers > 0 and  product.metafields.mamezi_x_kupilo_y.number_of_products_purchased > 0 %}
+    {% from "@macros/icon.twig" import icon %}
+    {% set locale = ObjectApi.getShopLocale() %}
+    {% set personText = "" %}
+    {% set buyText = "" %}
+    {% set thisProductText = "" %}
+    {% set langCode = locale.locale|slice(0,2) %}
+
+
+
+  {% if langCode == "cs" %}
+      {% set thisProductText = "tento produkt" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " člověk" %}
+          {% set buy = " koupil " %}
+      {% elseif product.metafields.mamezi_x_kupilo_y.number_of_buyers > 1 and product.metafields.mamezi_x_kupilo_y.number_of_buyers < 5 %}
+          {% set person = " lidé" %}
+          {% set buy = " koupili " %}
+      {% else %}
+          {% set person = " lidí" %}
+          {% set buy = " si koupilo " %}
+      {% endif %}
+
+  {% elseif langCode == "de" %}
+      {% set thisProductText = "dieses Produkt gekauft" %}
+
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == product.metafields.mamezi_x_kupilo_y.number_of_products_purchased %}
+          {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+              {% set person = " Person" %}
+              {% set buy = " hat " %}
+          {% else %}
+              {% set person = " Personen" %}
+              {% set buy = " haben " %}
+          {% endif %}
+      {% else %}
+          {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+              {% set person = " Person" %}
+              {% set buy = " haben " %}
+          {% else %}
+              {% set person = " Personen" %}
+              {% set buy = " haben " %}
+          {% endif %}
+      {% endif %}
+
+  {% elseif langCode == "fr" %}
+      {% set thisProductText = "ce produit" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " personne" %}
+          {% set buy = " a acheté " %}
+      {% else %}
+          {% set person = " personnes" %}
+          {% set buy = " ont acheté " %}
+      {% endif %}
+
+  {% elseif langCode == "en" %}
+      {% set thisProductText = "this product" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " person" %}
+          {% set buy = " bought " %}
+      {% else %}
+          {% set person = " people" %}
+          {% set buy = " bought " %}
+      {% endif %}
+
+  {% elseif langCode == "es" %}
+      {% set thisProductText = "este producto" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " persona" %}
+          {% set buy = " compró " %}
+      {% else %}
+          {% set person = " personas" %}
+          {% set buy = " compraron " %}
+      {% endif %}
+
+  {% elseif langCode == "it" %}
+      {% set thisProductText = "questo prodotto" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " persona" %}
+          {% set buy = " ha acquistato " %}
+      {% else %}
+          {% set person = " persone" %}
+          {% set buy = " hanno acquistato " %}
+      {% endif %}
+
+
+  {% elseif langCode == "ro" %}
+      {% set thisProductText = "acest produs" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " persoana" %}
+          {% set buy = " a cumpărat " %}
+      {% else %}
+          {% set person = " de persoane" %}
+          {% set buy = " au cumpărat " %}
+      {% endif %}
+
+  {% elseif langCode == "sk" %}
+      {% set thisProductText = "tento produkt" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " osoba" %}
+          {% set buy = " kúpila " %}
+      {% elseif product.metafields.mamezi_x_kupilo_y.number_of_buyers >= 5 and product.metafields.mamezi_x_kupilo_y.number_of_buyers <= 21 %}
+          {% set person = " osôb" %}
+          {% set buy = " kúpilo " %}
+      {% elseif product.metafields.mamezi_x_kupilo_y.number_of_buyers % 10 >= 2 and product.metafields.mamezi_x_kupilo_y.number_of_buyers % 10 <= 4 %}
+          {% set person = " osoby" %}
+          {% set buy = " kúpily " %}
+      {% else %}
+          {% set person = " osôb" %}
+          {% set buy = " kúpilo " %}
+      {% endif %}
+
+  {% else %}
+      {% set thisProductText = "ten produkt" %}
+      {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == 1 %}
+          {% set person = " osoba" %}
+          {% set buy = " kupiła " %}
+      {% elseif product.metafields.mamezi_x_kupilo_y.number_of_buyers >= 5 and product.metafields.mamezi_x_kupilo_y.number_of_buyers <= 21 %}
+          {% set person = " osób" %}
+          {% set buy = " kupiło " %}
+      {% elseif product.metafields.mamezi_x_kupilo_y.number_of_buyers % 10 >= 2 and product.metafields.mamezi_x_kupilo_y.number_of_buyers % 10 <= 4 %}
+          {% set person = " osoby" %}
+          {% set buy = " kupiły " %}
+      {% else %}
+          {% set person = " osób" %}
+          {% set buy = " kupiło " %}
+      {% endif %}
+  {% endif %}
+
+
+  <div class="mmz x-bought-y">
+      <div class="x-bought-y__wrap">	
+        {% if moduleConfig.iconOption == "default" %}
+            {{ icon('icon-users', {size:"l"}) }}
+        {% elseif moduleConfig.iconOption == "custom" %}
+            <img src="{{ moduleConfig.customIcon.paths.webp }}">
+        {% endif %}
+        
+        <p class="p_s">
+          <span class="font_semibold">{{ product.metafields.mamezi_x_kupilo_y.number_of_buyers }}</span> {{ person }} {{ buy }}
+          {% if product.metafields.mamezi_x_kupilo_y.number_of_buyers == product.metafields.mamezi_x_kupilo_y.number_of_products_purchased %}
+          {{ thisProductText }}
+          {% else %}
+          <span class="font_semibold">{{ product.metafields.mamezi_x_kupilo_y.number_of_products_purchased }} {{ product.unit.name }} </span>
+          {% endif %}
+        </p>
+      </div>
+  </div>
+
+  <style>.mmz .x-bought-y__wrap{display:inline-flex;align-items:center;border-top:1px solid rgba(3,8,28,.15);border-bottom:1px solid rgba(3,8,28,.15);padding:10px;box-sizing:border-box}.mmz .x-bought-y__wrap svg{margin-right:5px}.mmz .x-bought-y__wrap img{margin-right:5px}</style>
+{% endif %}

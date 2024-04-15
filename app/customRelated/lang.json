@@ -1,0 +1,17 @@
+{
+    "schema": {
+      "pl_PL": {
+        "Display the product name": "Wyświetlać nazwę produktu",
+        "Display the product price": "Wyświetlać cenę produktu",
+        "Product name text size": "Rozmiar tekstu nazwy produktu",
+        "Display the headline": "Wyświetlać nagłówek",
+        "Headline translation": "Tłumaczenie nagłówka",
+        "Header text size": "Rozmiar tekstu nagłówka",
+        "Header text color": "Kolor tekstu nagłówka",
+        "Selected product": "Wybrany produkt",
+        "Selected product border size": "Grubość ramki wybranego produktu",
+        "Selected product border color": "Kolor ramki wybranego produktu",
+        "Number of products in a row": "Liczba produktów w wierszu"
+      }
+    }
+  }

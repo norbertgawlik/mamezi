@@ -1,0 +1,11 @@
+{
+    "schema": {
+      "pl_PL": {
+        "Icon": "Ikona",
+        "Default": "Domyślna",
+        "None": "Brak",
+        "Custom": "Własna",
+        "Custom icon for app": "Własna ikona dla aplikacji"
+      }
+    }
+  }

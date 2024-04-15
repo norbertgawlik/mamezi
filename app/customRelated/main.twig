@@ -1,0 +1,76 @@
+{% set currentProduct = ObjectApi.getProduct(product_id) %}
+{% set systemMetafields = ObjectApi.getSystemMetafields() %}
+
+{% if currentProduct.metafields.mamezi_produkty_powiazane.connectedProductsIds != "" %}
+
+    {% set connectedProducts = json_decode(currentProduct.metafields.mamezi_produkty_powiazane.connectedProductsIds|replace({'{': '[', '}': ']'})) %}
+    {% set width = moduleConfig.widthProductSize %}
+    {% if width == "" %}
+        {% set width = "120px" %}
+    {% endif %}
+
+    {% set widthInt = width|number_format %}
+    {#  comememnt #}
+
+    {% if moduleConfig.headerActive == 1 and moduleConfig.headerText != "" %}
+        <span class="relatedHeader">{{ moduleConfig.headerText }}</span>
+    {% endif %}
+    {#  comememnt #}
+    <div id="customRelated" class="box">
+        {% for connectedProduct in connectedProducts %}
+            {% set product = ObjectApi.getProduct(connectedProduct) %}
+
+
+            <a class="related-item {% if product.id == product_id %}current{% endif %}" href="{{ product.url }}"
+               title="{{ product.name }}" data-id="{{ product.id }}" data-stock-id="1">
+                <img src="{{ product.featuredImage.webpThumbnailUrl( widthInt, widthInt) }}" alt="{{ product.name }}"
+                     width="{{ widthInt }}" height="{{ widthInt }}">
+
+                {% if moduleConfig.showProductName == 1 %}
+                    <br>
+                    <span class="related-item-name">{{ product.name }}</span>
+                {% endif %}
+            </a>
+
+
+
+        {% endfor %}
+    </div>
+
+
+    <style type="text/css">.related-item {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .related-item .related-item-name {
+            display: block;
+            text-align: center !important;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #customRelated .related-item img {
+            object-fit: contain;
+            height: auto;
+            width: auto;
+        }
+
+        .related-item.current {
+            border: solid;
+        }
+
+        .relatedHeader {
+            font-size: {{ moduleConfig.headerTextSize }}
+        }
+
+        #customRelated {
+            margin-top: 10px
+        }
+
+
+        .related-item {
+            max-width: {{ width }}
+        }
+    </style>
+{% endif %}

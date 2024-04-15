@@ -1,0 +1,71 @@
+[
+    {
+        "label": "General settings",
+        "state": "unfolded",
+        "elements": [
+            {
+                "name": "iconOption",
+                "type": "radio",
+                "options": {
+                    "radioOptions": [
+                        {
+                            "key": "default",
+                            "label": "Default"
+                        },
+                        {
+                            "key": "none",
+                            "label": "None"
+                        },
+                        {
+                            "key": "custom",
+                            "label": "Custom"
+                        }
+                    ]
+                },
+                "label": "Icon",
+                "defaultValue": "default",
+                "children": [
+                    {
+                        "name": "customIcon",
+                        "type": "imageUpload",
+                        "relations": [
+                            {
+                                "parentName": "iconOption",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "default",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    },
+                                    {
+                                        "value": "none",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    },
+                                    {
+                                        "value": "custom",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "options": {
+                            "requireImageSize": true,
+                            "allowedExtensions": [
+                                "jpeg",
+                                "jpg",
+                                "png"
+                            ]
+                        },
+                        "label": "Icon",
+                        "labelDescription": "Custom icon for app"
+                    }
+                ]
+            }
+        ]
+    }
+]

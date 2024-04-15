@@ -1,0 +1,329 @@
+[
+    {
+        "label": "General settings",
+        "state": "unfolded",
+        "elements": [
+            {
+                "name": "showProductImage",
+                "type": "checkbox",
+                "label": "Display the image",
+                "defaultValue": 1
+            },
+            {
+                "name": "showProductPrice",
+                "type": "checkbox",
+                "label": "Display the product price",
+                "defaultValue": 0
+            },
+            {
+                "name": "showProductName",
+                "type": "checkbox",
+                "label": "Display the product name",
+                "defaultValue": 1,
+                "children": [
+                    {
+                        "name": "productNameText",
+                        "type": "fontSize",
+                        "relations": [
+                            {
+                                "parentName": "showProductName",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "1",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    },
+                                    {
+                                        "value": "0",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "Product name size",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": {
+                            "unit": 1,
+                            "size": 20
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "headerActive",
+                "type": "checkbox",
+                "label": "Display the headline",
+                "defaultValue": 0,
+                "children": [
+                    {
+                        "name": "headerText",
+                        "type": "text",
+                        "relations": [
+                            {
+                                "parentName": "headerActive",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "1",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    },
+                                    {
+                                        "value": "0",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "Headline translation",
+                        "supportsTranslations": true
+                    },
+                    {
+                        "name": "headerTextSize",
+                        "type": "fontSize",
+                        "relations": [
+                            {
+                                "parentName": "headerActive",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "1",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    },
+                                    {
+                                        "value": "0",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "Header text size",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": {
+                            "unit": 1,
+                            "size": 20
+                        }
+                    },
+                    {
+                        "name": "headerTextColor",
+                        "type": "colorPicker",
+                        "relations": [
+                            {
+                                "parentName": "headerActive",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "1",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    },
+                                    {
+                                        "value": "0",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "Header text color",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": "#fff"
+                    }
+                ]
+            },
+            {
+                "name": "selectedProductHeader",
+                "type": "header",
+                "label": "Selected product",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "selectedProductBorderSize",
+                        "type": "fontSize",
+                        "label": "Selected product border size",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": {
+                            "unit": 1,
+                            "size": 20
+                        }
+                    },
+                    {
+                        "name": "selectedProductBorderColor",
+                        "type": "colorPicker",
+                        "label": "Selected product border color",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": "#fff"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "label": "Optional settings",
+        "state": "unfolded",
+        "elements": [
+            {
+                "name": "phoneHeader",
+                "type": "header",
+                "options": {
+                    "icon": "phone"
+                },
+                "label": "Phone",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "numberOfProductsInRowPhone",
+                        "type": "number",
+                        "validators": [
+                            {
+                                "type": "positiveNumber"
+                            },
+                            {
+                                "type": "int"
+                            },
+                            {
+                                "type": "greaterEqThan",
+                                "options": {
+                                    "min": 1
+                                }
+                            },
+                            {
+                                "type": "lessEqThan",
+                                "options": {
+                                    "max": 10
+                                }
+                            }
+                        ],
+                        "label": "Number of products in a row",
+                        "defaultValue": 2
+                    }
+                ]
+            },
+            {
+                "name": "tabletHeader",
+                "type": "header",
+                "options": {
+                    "icon": "tablet"
+                },
+                "label": "Tablet",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "numberOfProductsInRowTablet",
+                        "type": "number",
+                        "validators": [
+                            {
+                                "type": "positiveNumber"
+                            },
+                            {
+                                "type": "int"
+                            },
+                            {
+                                "type": "greaterEqThan",
+                                "options": {
+                                    "min": 1
+                                }
+                            },
+                            {
+                                "type": "lessEqThan",
+                                "options": {
+                                    "max": 15
+                                }
+                            }
+                        ],
+                        "label": "Number of products in a row",
+                        "defaultValue": 2
+                    }
+                ]
+            },
+            {
+                "name": "laptopHeader",
+                "type": "header",
+                "options": {
+                    "icon": "laptop"
+                },
+                "label": "Laptop",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "numberOfProductsInRowLaptop",
+                        "type": "number",
+                        "validators": [
+                            {
+                                "type": "positiveNumber"
+                            },
+                            {
+                                "type": "int"
+                            },
+                            {
+                                "type": "greaterEqThan",
+                                "options": {
+                                    "min": 1
+                                }
+                            },
+                            {
+                                "type": "lessEqThan",
+                                "options": {
+                                    "max": 20
+                                }
+                            }
+                        ],
+                        "label": "Number of products in a row",
+                        "defaultValue": 4
+                    }
+                ]
+            },
+            {
+                "name": "desktopHeader",
+                "type": "header",
+                "options": {
+                    "icon": "desktop"
+                },
+                "label": "Desktop",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "numberOfProductsInRowDesktop",
+                        "type": "number",
+                        "validators": [
+                            {
+                                "type": "positiveNumber"
+                            },
+                            {
+                                "type": "int"
+                            },
+                            {
+                                "type": "greaterEqThan",
+                                "options": {
+                                    "min": 1
+                                }
+                            },
+                            {
+                                "type": "lessEqThan",
+                                "options": {
+                                    "max": 25
+                                }
+                            }
+                        ],
+                        "label": "Number of products in a row",
+                        "defaultValue": 4
+                    }
+                ]
+            }
+        ]
+    }
+]
