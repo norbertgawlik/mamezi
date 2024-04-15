@@ -1,40 +1,47 @@
+{% from "@macros/list_grid.twig" import list_grid %}
 {% set currentProduct = ObjectApi.getProduct(product_id) %}
-{% set systemMetafields = ObjectApi.getSystemMetafields() %}
 
 {% if currentProduct.metafields.mamezi_produkty_powiazane.connectedProductsIds != "" %}
-
     {% set connectedProducts = json_decode(currentProduct.metafields.mamezi_produkty_powiazane.connectedProductsIds|replace({'{': '[', '}': ']'})) %}
-    {% set width = moduleConfig.widthProductSize %}
-    {% if width == "" %}
-        {% set width = "120px" %}
-    {% endif %}
 
-    {% set widthInt = width|number_format %}
-    {#  comememnt #}
-
-    {% if moduleConfig.headerActive == 1 and moduleConfig.headerText != "" %}
-        <span class="relatedHeader">{{ moduleConfig.headerText }}</span>
-    {% endif %}
-    {#  comememnt #}
-    <div id="customRelated" class="box">
+    {% set itemsList %}
         {% for connectedProduct in connectedProducts %}
             {% set product = ObjectApi.getProduct(connectedProduct) %}
 
-
             <a class="related-item {% if product.id == product_id %}current{% endif %}" href="{{ product.url }}"
                title="{{ product.name }}" data-id="{{ product.id }}" data-stock-id="1">
-                <img src="{{ product.featuredImage.webpThumbnailUrl( widthInt, widthInt) }}" alt="{{ product.name }}"
-                     width="{{ widthInt }}" height="{{ widthInt }}">
+
+                {% if moduleConfig.showProductImage == 1 %}
+                    <img src="{{ product.featuredImage.webpThumbnailUrl(120, 120) }}" alt="{{ product.name }}"
+                         width="120" height="120">
+                {% endif %}
 
                 {% if moduleConfig.showProductName == 1 %}
                     <br>
                     <span class="related-item-name">{{ product.name }}</span>
                 {% endif %}
             </a>
-
-
-
         {% endfor %}
+    {% endset %}
+
+
+    {% if moduleConfig.headerText != "" %}
+        <span class="relatedHeader">{{ moduleConfig.headerText }}</span>
+    {% endif %}
+
+    <div id="customRelated">
+        {{ list_grid(
+            itemsList,
+            {
+                grid: {
+                phoneItemsCountPerRow: moduleConfig.numberOfProductsInRowPhone,
+                smallTabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
+                tabletItemsCountPerRow: moduleConfig.numberOfProductsInRowTablet,
+                laptopItemsCountPerRow: moduleConfig.numberOfProductsInRowLaptop,
+                desktopItemsCountPerRow: moduleConfig.numberOfProductsInRowDesktop
+            }
+            }
+        ) }}
     </div>
 
 
@@ -58,19 +65,17 @@
 
         .related-item.current {
             border: solid;
+            border-color: {{ moduleConfig.borderColor }};
+            border-width: {{ moduleConfig.borderSize }}px;
         }
 
         .relatedHeader {
-            font-size: {{ moduleConfig.headerTextSize }}
+            font-weight: bold;
         }
 
         #customRelated {
             margin-top: 10px
         }
 
-
-        .related-item {
-            max-width: {{ width }}
-        }
     </style>
 {% endif %}

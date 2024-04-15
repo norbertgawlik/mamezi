@@ -4,67 +4,23 @@
         "state": "unfolded",
         "elements": [
             {
-                "name": "showProductImage",
-                "type": "checkbox",
-                "label": "Display the image",
-                "defaultValue": 1
+                "name": "headerText",
+                "type": "text",
+                "label": "Headline",
+                "supportsTranslations": true
             },
             {
-                "name": "showProductPrice",
+                "name": "showExpandButton",
                 "type": "checkbox",
-                "label": "Display the product price",
-                "defaultValue": 0
-            },
-            {
-                "name": "showProductName",
-                "type": "checkbox",
-                "label": "Display the product name",
-                "defaultValue": 1,
-                "children": [
-                    {
-                        "name": "productNameText",
-                        "type": "fontSize",
-                        "relations": [
-                            {
-                                "parentName": "showProductName",
-                                "parentValueToActionsMap": [
-                                    {
-                                        "value": "1",
-                                        "actions": [
-                                            "setVisible"
-                                        ]
-                                    },
-                                    {
-                                        "value": "0",
-                                        "actions": [
-                                            "setHidden"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "label": "Product name size",
-                        "isHidden": false,
-                        "isRequired": false,
-                        "defaultValue": {
-                            "unit": 1,
-                            "size": 20
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "headerActive",
-                "type": "checkbox",
-                "label": "Display the headline",
+                "label": "Show \"expand\" when more than 1 row",
                 "defaultValue": 0,
                 "children": [
                     {
-                        "name": "headerText",
+                        "name": "expandButtonText",
                         "type": "text",
                         "relations": [
                             {
-                                "parentName": "headerActive",
+                                "parentName": "showExpandButton",
                                 "parentValueToActionsMap": [
                                     {
                                         "value": "1",
@@ -81,101 +37,11 @@
                                 ]
                             }
                         ],
-                        "label": "Headline translation",
-                        "supportsTranslations": true
-                    },
-                    {
-                        "name": "headerTextSize",
-                        "type": "fontSize",
-                        "relations": [
-                            {
-                                "parentName": "headerActive",
-                                "parentValueToActionsMap": [
-                                    {
-                                        "value": "1",
-                                        "actions": [
-                                            "setVisible"
-                                        ]
-                                    },
-                                    {
-                                        "value": "0",
-                                        "actions": [
-                                            "setHidden"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "label": "Header text size",
-                        "isHidden": false,
-                        "isRequired": false,
-                        "defaultValue": {
-                            "unit": 1,
-                            "size": 20
-                        }
-                    },
-                    {
-                        "name": "headerTextColor",
-                        "type": "colorPicker",
-                        "relations": [
-                            {
-                                "parentName": "headerActive",
-                                "parentValueToActionsMap": [
-                                    {
-                                        "value": "1",
-                                        "actions": [
-                                            "setVisible"
-                                        ]
-                                    },
-                                    {
-                                        "value": "0",
-                                        "actions": [
-                                            "setHidden"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "label": "Header text color",
-                        "isHidden": false,
-                        "isRequired": false,
-                        "defaultValue": "#fff"
+                        "label": "Expand button text",
+                        "defaultValue": "Rozwin"
                     }
                 ]
             },
-            {
-                "name": "selectedProductHeader",
-                "type": "header",
-                "label": "Selected product",
-                "isHidden": false,
-                "children": [
-                    {
-                        "name": "selectedProductBorderSize",
-                        "type": "fontSize",
-                        "label": "Selected product border size",
-                        "isHidden": false,
-                        "isRequired": false,
-                        "defaultValue": {
-                            "unit": 1,
-                            "size": 20
-                        }
-                    },
-                    {
-                        "name": "selectedProductBorderColor",
-                        "type": "colorPicker",
-                        "label": "Selected product border color",
-                        "isHidden": false,
-                        "isRequired": false,
-                        "defaultValue": "#fff"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "Optional settings",
-        "state": "unfolded",
-        "elements": [
             {
                 "name": "phoneHeader",
                 "type": "header",
@@ -321,6 +187,64 @@
                         ],
                         "label": "Number of products in a row",
                         "defaultValue": 4
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "label": "Product tile",
+        "state": "unfolded",
+        "elements": [
+            {
+                "name": "header",
+                "type": "header",
+                "label": "For each product show",
+                "children": [
+                    {
+                        "name": "showProductName",
+                        "type": "checkbox",
+                        "label": "Name",
+                        "defaultValue": 0
+                    },
+                    {
+                        "name": "showProductImage",
+                        "type": "checkbox",
+                        "label": "Image",
+                        "defaultValue": 1
+                    }
+                ]
+            },
+            {
+                "name": "shortenLongProductNames",
+                "type": "checkbox",
+                "label": "Shorten long product names",
+                "defaultValue": 1
+            },
+            {
+                "name": "selectedProductHeader",
+                "type": "header",
+                "label": "Selected product",
+                "isHidden": false,
+                "children": [
+                    {
+                        "name": "borderSize",
+                        "type": "number",
+                        "options": {
+                            "postfix": "px"
+                        },
+                        "label": "Border size",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": 2
+                    },
+                    {
+                        "name": "borderColor",
+                        "type": "colorPicker",
+                        "label": "Border color",
+                        "isHidden": false,
+                        "isRequired": false,
+                        "defaultValue": "#FF0000"
                     }
                 ]
             }

@@ -1,17 +1,20 @@
 {
-    "schema": {
-      "pl_PL": {
-        "Display the product name": "Wyświetlać nazwę produktu",
-        "Display the product price": "Wyświetlać cenę produktu",
-        "Product name text size": "Rozmiar tekstu nazwy produktu",
-        "Display the headline": "Wyświetlać nagłówek",
-        "Headline translation": "Tłumaczenie nagłówka",
-        "Header text size": "Rozmiar tekstu nagłówka",
-        "Header text color": "Kolor tekstu nagłówka",
-        "Selected product": "Wybrany produkt",
-        "Selected product border size": "Grubość ramki wybranego produktu",
-        "Selected product border color": "Kolor ramki wybranego produktu",
-        "Number of products in a row": "Liczba produktów w wierszu"
-      }
+  "schema": {
+    "pl_PL": {
+      "Headline": "Nagłówek",
+      "Selected product": "Wybrany produkt",
+      "Border size": "Grubość ramki",
+      "Border color": "Kolor ramki",
+      "Number of products in a row": "Liczba produktów w wierszu",
+
+      "Product tile": "Kafelek produktu",
+      "Expand button text": "Tekst przycisku rozwijania",
+      "Show \"expand\" when more than 1 row": "Pokaż \"rozwiń\" gdy więcej niż 1 wiersz",
+      "Expand more": "Rozwiń więcej",
+      "For each product show": "Dla każdego produktu pokaż",
+      "Shorten long product names": "Skracaj długie nazwy produktów",
+      "Name": "Nazwę",
+      "Image": "Zdjęcie"
     }
   }
+}
