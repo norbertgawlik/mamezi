@@ -38,6 +38,7 @@
                             }
                         ],
                         "label": "Expand button text",
+                        "supportsTranslations": true,
                         "defaultValue": "Rozwin"
                     }
                 ]

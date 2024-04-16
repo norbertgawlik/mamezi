@@ -61,57 +61,53 @@
     </div>
     
     <style type="text/css">
+      .mmz .custom-related{
 
-    .mmz .custom-related{
+      }
+      .mmz .custom-related__boxhead{
 
-    }
-    .mmz .custom-related__boxhead{
+      }
+      .mmz .custom-related__list{
+          gap:20px;
+      }
+      .mmz .custom-related__item{
+          width: 100%;
+          text-decoration: none;
+      }
 
-    }
-    .mmz .custom-related__wrap{
+      .mmz .custom-related__imgwrap{
+          border-radius: 3px;
+          border: 1px solid rgba(3, 8, 28, 0.15);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          padding: 7px;
+      }
 
-    }
-    .mmz .custom-related__list{
-        gap:20px;
-    }
-    .mmz .custom-related__item{
-        width: 100%;
-        text-decoration: none;
-    }
+      .mmz .custom-related__item--current .custom-related__imgwrap{
+          border-color: {{ moduleConfig.borderColor }};
+          border-width: {{ moduleConfig.borderSize }}px;
+      }
 
-    .mmz .custom-related__imgwrap{
-        border-radius: 3px;
-        border: 1px solid rgba(3, 8, 28, 0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        padding: 7px;
-    }
+      .mmz .custom-related__name{
+          display: block;
+          color:black;
+          margin: 10px 2px;
+          font-size:12px;
+          line-height:15px;
+          text-align: center;
+      }
 
-    .mmz .custom-related__item--current .custom-related__imgwrap{
-        border-color: {{ moduleConfig.borderColor }};
-        border-width: {{ moduleConfig.borderSize }}px;
-    }
-
-    .mmz .custom-related__name{
-        display: block;
-        color:black;
-        margin: 10px 2px;
-        font-size:12px;
-        line-height:15px;
-        text-align: center;
-    }
-
-    .mmz .custom-related__showmore{
-        font-size:12px;
-        text-decoration:underline;
-        text-align: center;
-        padding: 5px;
-        box-sizing: border-box;
-        color: #D6302D;
-        cursor: pointer;
-    }
+      .mmz .custom-related__showmore{
+          font-size:12px;
+          text-decoration:underline;
+          text-align: center;
+          padding: 10px 5px;
+          box-sizing: border-box;
+          color: #D6302D;
+          cursor: pointer;
+      }
     </style>
     
     {% if moduleConfig.showExpandButton == 1 %}
@@ -122,6 +118,9 @@
         {% set numberOfProductsInRowDesktopKey = moduleConfig.numberOfProductsInRowDesktop + 1 %}
 			
         <style type="text/css">
+          .mmz .custom-related__list.show .custom-related__item{
+          	display:block !important;
+          }
           .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
               display:none;
           }
