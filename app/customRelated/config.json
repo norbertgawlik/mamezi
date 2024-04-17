@@ -39,7 +39,33 @@
                         ],
                         "label": "Expand button text",
                         "supportsTranslations": true,
-                        "defaultValue": "Rozwin"
+                        "defaultValue": "Expand more"
+                    },
+                    {
+                        "name": "hideButtonText",
+                        "type": "text",
+                        "relations": [
+                            {
+                                "parentName": "showExpandButton",
+                                "parentValueToActionsMap": [
+                                    {
+                                        "value": "1",
+                                        "actions": [
+                                            "setVisible"
+                                        ]
+                                    },
+                                    {
+                                        "value": "0",
+                                        "actions": [
+                                            "setHidden"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "Hide button text",
+                        "supportsTranslations": true,
+                        "defaultValue": "Show less"
                     }
                 ]
             },
@@ -237,7 +263,7 @@
                         "label": "Border size",
                         "isHidden": false,
                         "isRequired": false,
-                        "defaultValue": 2
+                        "defaultValue": 1
                     },
                     {
                         "name": "borderColor",

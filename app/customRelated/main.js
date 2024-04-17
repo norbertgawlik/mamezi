@@ -4,5 +4,6 @@
   if(trigger === null || list === null) return;
   trigger.addEventListener('click',()=>{
     list.classList.toggle('show');
+    list.classList.contains('show') ? trigger.innerHTML = trigger.getAttribute('data-hide-lang') : trigger.innerHTML = trigger.getAttribute('data-show-lang');
   });
 })();

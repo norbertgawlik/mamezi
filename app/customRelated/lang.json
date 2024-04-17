@@ -6,15 +6,22 @@
       "Border size": "Grubość ramki",
       "Border color": "Kolor ramki",
       "Number of products in a row": "Liczba produktów w wierszu",
-
       "Product tile": "Kafelek produktu",
       "Expand button text": "Tekst przycisku rozwijania",
+      "Hide button text": "Tekst przycisku zwijania",
       "Show \"expand\" when more than 1 row": "Pokaż \"rozwiń\" gdy więcej niż 1 wiersz",
       "Expand more": "Rozwiń więcej",
+      "Show less": "Pokaż mniej",
       "For each product show": "Dla każdego produktu pokaż",
       "Shorten long product names": "Skracaj długie nazwy produktów",
       "Name": "Nazwę",
       "Image": "Zdjęcie"
+    }
+  },
+  "module": {
+    "pl_PL": {
+      "Expand more": "Rozwiń więcej",
+      "Show less": "Pokaż mniej"
     }
   }
 }
