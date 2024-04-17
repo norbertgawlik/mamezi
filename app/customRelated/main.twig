@@ -5,9 +5,17 @@
     {% set connectedProducts = json_decode(currentProduct.metafields.mamezi_produkty_powiazane.connectedProductsIds|replace({'{': '[', '}': ']'})) %}
 
     {% set itemsList %}
+    
+        {% if moduleConfig.showExpandButton == 1 %} 
+            {% set loadedProductsCount = 0 %}
+        {% endif %}
+        
         {% for connectedProduct in connectedProducts %}
             {% set product = ObjectApi.getProduct(connectedProduct) %}
 				{% if product.isAvailable %}
+                	{% if moduleConfig.showExpandButton == 1 %} 
+                        {% set loadedProductsCount = loadedProductsCount+1 %}
+                    {% endif %}
 					<a 
                   		class="custom-related__item {% if product.id == product_id %}custom-related__item--current{% endif %}" 
                         href="{{ product.url }}" 
@@ -27,13 +35,13 @@
                       	{% endif %}
 
                         {% if moduleConfig.showProductName == 1 %}
-                            <span class="custom-related__name">{{ product.name }}</span>
+                            <span class="custom-related__name {% if moduleConfig.shortenLongProductNames == 1 %}custom-related__name--collapse{% endif %}">{{ product.name }}</span>
                         {% endif %}
                   </a>
                 {% endif %}
         {% endfor %}
     {% endset %}
-
+	
     <div class="mmz custom-related">
     	{% if moduleConfig.headerText != "" %}
             <p class="p font_semibold custom-related__boxhead">{{ moduleConfig.headerText }}</p>
@@ -61,20 +69,14 @@
     </div>
     
     <style type="text/css">
-      .mmz .custom-related{
-
-      }
-      .mmz .custom-related__boxhead{
-
-      }
       .mmz .custom-related__list{
           gap:20px;
       }
       .mmz .custom-related__item{
           width: 100%;
           text-decoration: none;
+          display:grid;
       }
-
       .mmz .custom-related__imgwrap{
           border-radius: 3px;
           border: 1px solid rgba(3, 8, 28, 0.15);
@@ -84,12 +86,10 @@
           box-sizing: border-box;
           padding: 7px;
       }
-
       .mmz .custom-related__item--current .custom-related__imgwrap{
           border-color: {{ moduleConfig.borderColor }};
           border-width: {{ moduleConfig.borderSize }}px;
       }
-
       .mmz .custom-related__name{
           display: block;
           color:black;
@@ -98,6 +98,16 @@
           line-height:15px;
           text-align: center;
       }
+      
+      {% if moduleConfig.shortenLongProductNames == 1 %}
+        .mmz .custom-related__name--collapse{
+            width : 100%;
+            overflow:hidden;
+            display:inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+      {% endif %}
 
       .mmz .custom-related__showmore{
           font-size:12px;
@@ -111,68 +121,146 @@
     </style>
     
     {% if moduleConfig.showExpandButton == 1 %}
+    
 		{% set numberOfProductsInRowPhoneKey = moduleConfig.numberOfProductsInRowPhone + 1 %}
         {% set numberOfProductsInRowTabletSmallKey = moduleConfig.numberOfProductsInRowTablet + 1 %}
         {% set numberOfProductsInRowTabletKey = moduleConfig.numberOfProductsInRowTablet + 1 %}
         {% set numberOfProductsInRowLaptopKey = moduleConfig.numberOfProductsInRowLaptop + 1 %}
         {% set numberOfProductsInRowDesktopKey = moduleConfig.numberOfProductsInRowDesktop + 1 %}
-			
+        
+        {# showTriggerButtonMediaQuery #}
+        
+        {% if moduleConfig.numberOfProductsInRowPhone >= loadedProductsCount %}
+			{% set showTriggerButtonPhone = false %}
+        {% else %}
+        	{% set showTriggerButtonPhone = true %}
+        {% endif %}
+        {% if moduleConfig.numberOfProductsInRowTablet >= loadedProductsCount %}
+			{% set showTriggerButtonSmallTablet = false %}
+            {% set showTriggerButtonTablet = false %}
+        {% else %}
+        	{% set showTriggerButtonSmallTablet = true %}
+            {% set showTriggerButtonTablet = true %}
+        {% endif %}
+        {% if moduleConfig.numberOfProductsInRowLaptop >= loadedProductsCount %}
+			{% set showTriggerButtonLaptop = false %}
+        {% else %}
+        	{% set showTriggerButtonLaptop = true %}
+        {% endif %}
+        {% if moduleConfig.numberOfProductsInRowDesktop >= loadedProductsCount %}
+			{% set showTriggerButtonDesktop = false %}
+        {% else %}
+        	{% set showTriggerButtonDesktop = true %}
+        {% endif %}
+        
+        {# endShowTriggerButtonMediaQuery #}
+        
         <style type="text/css">
           .mmz .custom-related__list.show .custom-related__item{
-          	display:block !important;
+          	display:grid !important;
           }
           .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
               display:none;
           }
+          
+          {% if showTriggerButtonPhone == true %}
+            .mmz .custom-related__showmore{
+            	display:block;
+            }
+          {% else %}
+          	.mmz .custom-related__showmore{
+            	display:none;
+            }
+          {% endif %}
+          
           @media screen and (min-width:576px){
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
                   display:none;
               }
+              
+              {% if showTriggerButtonSmallTablet == true %}
+                .mmz .custom-related__showmore{
+                    display:block;
+                }
+              {% else %}
+              	.mmz .custom-related__showmore{
+                    display:none;
+                }
+              {% endif %}
           }
           @media screen and (min-width:768px){
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
                   display:none;
               }
+              
+              {% if showTriggerButtonTablet == true %}
+                .mmz .custom-related__showmore{
+                    display:block;
+                }
+              {% else %}
+              	.mmz .custom-related__showmore{
+                    display:none;
+                }
+              {% endif %}
           }
           @media screen and (min-width:1000px){
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
                   display:none;
               }
+              
+              {% if showTriggerButtonLaptop == true %}
+                .mmz .custom-related__showmore{
+                    display:block;
+              	}
+              {% else %}
+              	.mmz .custom-related__showmore{
+                    display:none;
+              	}
+              {% endif %}
           }
           @media screen and (min-width:1440px){
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
-                  display:block;
+                  display:grid;
               }
               .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowDesktopKey }}){
                   display:none;
               }
+              {% if showTriggerButtonDesktop == true %}
+                .mmz .custom-related__showmore{
+                    display:block;
+              	}
+              {% else %}
+              	.mmz .custom-related__showmore{
+                    display:none;
+              	}
+              {% endif %}
           }
 		</style>
 	{% endif %}

@@ -1,0 +1,161 @@
+<style type="text/css">
+      .mmz .custom-related__list{
+          gap:20px;
+      }
+      .mmz .custom-related__item{
+          width: 100%;
+          text-decoration: none;
+          display:grid;
+      }
+      .mmz .custom-related__imgwrap{
+          border-radius: 3px;
+          border: 1px solid rgba(3, 8, 28, 0.15);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          padding: 7px;
+      }
+      .mmz .custom-related__item--current .custom-related__imgwrap{
+          border-color: {{ moduleConfig.borderColor }};
+          border-width: {{ moduleConfig.borderSize }}px;
+      }
+      .mmz .custom-related__name{
+          display: block;
+          color:black;
+          margin: 10px 2px;
+          font-size:12px;
+          line-height:15px;
+          text-align: center;
+      }
+      
+      {% if moduleConfig.shortenLongProductNames == 1 %}
+        .mmz .custom-related__name--collapse{
+            width : 100%;
+            overflow:hidden;
+            display:inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+      {% endif %}
+
+      .mmz .custom-related__showmore{
+          font-size:12px;
+          text-decoration:underline;
+          text-align: center;
+          padding: 10px 5px;
+          box-sizing: border-box;
+          color: #D6302D;
+          cursor: pointer;
+      }
+</style>
+
+{# if triggerButtonActive #}
+<style type="text/css">
+    .mmz .custom-related__list.show .custom-related__item{
+        display:grid !important;
+    }
+    .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+        display:none;
+    }
+    
+    {% if showTriggerButtonPhone == true %}
+    .mmz .custom-related__showmore{
+        display:block;
+    }
+    {% else %}
+    .mmz .custom-related__showmore{
+        display:none;
+    }
+    {% endif %}
+    
+    @media screen and (min-width:576px){
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+            display:none;
+        }
+        
+        {% if showTriggerButtonSmallTablet == true %}
+        .mmz .custom-related__showmore{
+            display:block;
+        }
+        {% else %}
+        .mmz .custom-related__showmore{
+            display:none;
+        }
+        {% endif %}
+    }
+    @media screen and (min-width:768px){
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+            display:none;
+        }
+        
+        {% if showTriggerButtonTablet == true %}
+        .mmz .custom-related__showmore{
+            display:block;
+        }
+        {% else %}
+        .mmz .custom-related__showmore{
+            display:none;
+        }
+        {% endif %}
+    }
+    @media screen and (min-width:1000px){
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
+            display:none;
+        }
+        
+        {% if showTriggerButtonLaptop == true %}
+        .mmz .custom-related__showmore{
+            display:block;
+        }
+        {% else %}
+        .mmz .custom-related__showmore{
+            display:none;
+        }
+        {% endif %}
+    }
+    @media screen and (min-width:1440px){
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowPhoneKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletSmallKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowTabletKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowLaptopKey }}){
+            display:grid;
+        }
+        .mmz .custom-related__item:nth-child(n+{{ numberOfProductsInRowDesktopKey }}){
+            display:none;
+        }
+        {% if showTriggerButtonDesktop == true %}
+        .mmz .custom-related__showmore{
+            display:block;
+        }
+        {% else %}
+        .mmz .custom-related__showmore{
+            display:none;
+        }
+        {% endif %}
+    }
+</style>
